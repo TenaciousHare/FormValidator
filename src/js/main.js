@@ -11,7 +11,6 @@ class Validator {
     this.fields = form.querySelectorAll("[required]");
     this.errors = [];
     this.errorsList = this.form.querySelector(".alert ol");
-
     if (!this.fields.length) return;
 
     this.form.onsubmit = function (e) {
@@ -20,8 +19,11 @@ class Validator {
       let formValid = this.validate();
 
       if (formValid) {
-        console.log('Wysłano formularz!');
-        this.form.submit();
+        const data = new FormData(document.forms[0]);
+        this.submitData(data);
+        $('.toast').toast('show');
+        this.form.reset();
+        this.fields.forEach((field) => this.clearValidity(field));
       } else {
         return false;
       }
@@ -30,6 +32,7 @@ class Validator {
 
   validate() {
     this.clearErrors();
+    
     this.fields.forEach((field) => this.validateField(field));
 
     if (!this.errors.length) {
@@ -66,6 +69,11 @@ class Validator {
     field.classList.add("is-invalid");
     field.classList.remove("is-valid");
   }
+  
+  clearValidity(field) {
+    field.classList.remove("is-valid");
+    field.classList.remove("is-invalid");
+  }
 
   showErrors() {
     let errorsListElements = document.createDocumentFragment();
@@ -84,6 +92,27 @@ class Validator {
     this.errors.length = 0;
     this.errorsList.parentNode.style.display = "none";
     this.errorsList.innerHTML = "";
+  }
+
+  submitData(data){
+
+    fetch('https://przeprogramowani.pl/projekt-walidacja',{
+      method: 'POST',
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data)
+    })
+    .then(res => {
+      if(response.ok){
+        return response.text()
+      }
+      throw "Nie udało się wysłać zapytania!"
+    })
+    .then(responseText => {
+      console.log(responseText);
+    })
+    .catch( err => {
+      console.log('Spróbuj ponownie!')
+    })
   }
 }
 
