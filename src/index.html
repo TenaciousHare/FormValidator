@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Form Validator</title>
+  </head>
+  <body class="bg-dark">
+    <div class="container">
+      <div class="d-flex justify-content-center align-items-center vh-100">
+        <div class="card p-5">
+          <header class="text-center">
+            <h1>Form Validation</h1>
+          </header>
+          <form action="" id="form" class="needs-validation" novalidate>
+            <div class="mb-3 form-floating">
+              <input
+                autofocus="true"
+                type="text"
+                name="name"
+                id="name"
+                class="form-control"
+                placeholder="Enter your name"
+                required
+                data-error-message="Enter your name"
+              />
+              <label id="name-label" for="name" class="text-primary"
+                >Enter your name</label
+              >
+            </div>
+            <div class="mb-3 form-floating">
+              <input
+                type="email"
+                name="email"
+                id="email"
+                class="form-control"
+                placeholder="Enter your email"
+                data-error-message="Enter your email"
+                required
+                
+              />
+              <label id="email-label" for="email" class="text-primary"
+                >Enter your email</label
+              >
+            </div>
+            <div class="form-floating mb-3">
+              <input
+                type="password"
+                name="password"
+                id="password"
+                class="form-control"
+                placeholder="Password"
+                data-error-message="Choose your password"
+                required
+              />
+              <label id="password-label" for="password" class="text-primary"
+                >Password</label
+              >
+            </div>
+            <div class="form-floating mb-3">
+              <input
+                type="password"
+                name="confirm"
+                id="confirm"
+                class="form-control"
+                placeholder="Confirm your password"
+                data-error-message="Confirm your password"
+                required
+              />
+              <label id="confirm-label" for="confirm" class="text-primary"
+                >Confirm your password</label
+              >
+            </div>
+
+            <div class="form-check mb-3">
+              <label id="checkbox-label" for="checkbox" class="form-check-label"
+                ><input
+                  name="checkbox"
+                  id="checkbox"
+                  type="checkbox"
+                  class="form-check-input"
+                  data-error-message="Agree to our Terms"
+                  required
+                /><span class="rodo"
+                  >Are you agree to our <a href="#">Terms</a> and you have read
+                  our <a href="#">privacy policy</a>?</span
+                ></label
+              >
+            </div>
+
+            <div class="mb-3">
+              <button type="submit" class="btn btn-primary text-white">
+                Submit
+              </button>
+            </div>
+
+            <div class="alert alert-danger">
+              <ol></ol>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <script type="module" src="./js/main.js"></script>
+  </body>
+</html>
