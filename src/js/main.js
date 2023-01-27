@@ -20,6 +20,7 @@ class Validator {
       let formValid = this.validate();
 
       if (formValid) {
+        console.log('Wysłano formularz!');
         this.form.submit();
       } else {
         return false;
@@ -29,7 +30,6 @@ class Validator {
 
   validate() {
     this.clearErrors();
-
     this.fields.forEach((field) => this.validateField(field));
 
     if (!this.errors.length) {
@@ -41,9 +41,16 @@ class Validator {
   }
 
   validateField(field) {
-    let fieldValid = field.validity.valid;
+    const fieldValid = field.validity.valid;
+    const password = this.form.querySelector('#password').value;
+    const confirm = this.form.querySelector('#confirm').value;
+    let passwordMatch = true; 
 
-    if (fieldValid) {
+    if(password !== confirm){
+      passwordMatch = false;
+    }
+
+    if (fieldValid && passwordMatch) {
       this.markAsValid(field);
     } else {
       this.errors.push(field.dataset.errorMessage);
