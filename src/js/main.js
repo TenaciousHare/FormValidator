@@ -21,7 +21,6 @@ class Validator {
       if (formValid) {
         const data = new FormData(document.forms[0]);
         this.submitData(data);
-        $('.toast').toast('show');
         this.form.reset();
         this.fields.forEach((field) => this.clearValidity(field));
       } else {
@@ -32,7 +31,7 @@ class Validator {
 
   validate() {
     this.clearErrors();
-    
+
     this.fields.forEach((field) => this.validateField(field));
 
     if (!this.errors.length) {
@@ -45,15 +44,17 @@ class Validator {
 
   validateField(field) {
     const fieldValid = field.validity.valid;
-    const password = this.form.querySelector('#password').value;
-    const confirm = this.form.querySelector('#confirm').value;
-    let passwordMatch = true; 
+    const password = this.form.querySelector("#password").value;
+    const confirm = this.form.querySelector("#confirm").value;
+    let passwordMatch = true;
 
-    if(password !== confirm){
+    if (password !== confirm) {
       passwordMatch = false;
     }
 
-    if (fieldValid && passwordMatch) {
+    if (field.name === "confirm" && fieldValid && passwordMatch) {
+      this.markAsValid(field);
+    } else if (fieldValid) {
       this.markAsValid(field);
     } else {
       this.errors.push(field.dataset.errorMessage);
@@ -69,13 +70,17 @@ class Validator {
     field.classList.add("is-invalid");
     field.classList.remove("is-valid");
   }
-  
+
   clearValidity(field) {
     field.classList.remove("is-valid");
     field.classList.remove("is-invalid");
   }
 
   showErrors() {
+    $(".toast-body").text("Try again!");
+    $(".toast").removeClass("bg-success bg-danger");
+    $(".toast").addClass("bg-primary");
+    $(".toast").toast("show");
     let errorsListElements = document.createDocumentFragment();
 
     this.errors.forEach((error) => {
@@ -94,25 +99,32 @@ class Validator {
     this.errorsList.innerHTML = "";
   }
 
-  submitData(data){
-
-    fetch('https://przeprogramowani.pl/projekt-walidacja',{
-      method: 'POST',
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data)
+  submitData(data) {
+    fetch("http://localhost:3000/form", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
     })
-    .then(res => {
-      if(response.ok){
-        return response.text()
-      }
-      throw "Nie udało się wysłać zapytania!"
-    })
-    .then(responseText => {
-      console.log(responseText);
-    })
-    .catch( err => {
-      console.log('Spróbuj ponownie!')
-    })
+      .then((response) => {
+        if (response.ok) {
+          return response.text();
+        }
+        throw `Status ${response.status}: Failed to send request!`;
+      })
+      .then((responseText) => {
+        $(".toast-body").text(responseText);
+        $(".toast").removeClass("bg-primary bg-danger");
+        $(".toast").addClass("bg-success");
+        $(".toast").toast("show");
+      })
+      .catch((err) => {
+        $(".toast-body").text(`${err}`);
+        $(".toast").removeClass("bg-primary bg-success");
+        $(".toast").addClass("bg-danger");
+        $(".toast").toast("show");
+      });
   }
 }
 

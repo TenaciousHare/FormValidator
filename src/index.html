@@ -6,22 +6,32 @@
     <title>Form Validator</title>
   </head>
   <body class="bg-dark">
-    
-    <div class="container" aria-live="polite" aria-atomic="true" style="position: relative; min-height: 200px;">
-
-      <div class="toast align-items-center text-white bg-primary border-0" role="alert" aria-live="assertive" aria-atomic="true" style="position: absolute; top: 75px; right: 0; left: 0; margin: auto;">
+    <div
+      class="container"
+      aria-live="polite"
+      aria-atomic="true"
+      style="position: relative; min-height: 200px"
+    >
+      <div
+        class="toast align-items-center text-white bg-primary border-0"
+        role="alert"
+        aria-live="assertive"
+        aria-atomic="true"
+        style="position: absolute; top: 25px; right: 0; left: 0; margin: auto"
+      >
         <div class="d-flex">
-          <div class="toast-body">
-            Form submitted!
-          </div>
-          <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+          <div class="toast-body">Form submitted!</div>
+          <button
+            type="button"
+            class="btn-close btn-close-white me-2 m-auto"
+            data-bs-dismiss="toast"
+            aria-label="Close"
+          ></button>
         </div>
       </div>
 
       <div class="d-flex justify-content-center align-items-center vh-100">
-
         <div class="card p-5">
-
           <header class="text-center">
             <h1>Form Validation</h1>
           </header>
@@ -65,14 +75,14 @@
                 id="password"
                 class="form-control"
                 placeholder="Password"
-                data-error-message='Password must contain:
+                data-error-message="Password must contain:
                 at least 8 characters,
                 one capital letter,
                 at least one number,
-                at least one special character.'
+                at least one special character."
                 required
                 min-length="8"
-                pattern='^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$'
+                pattern="^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$"
               />
               <label id="password-label" for="password" class="text-primary"
                 >Password</label
@@ -88,7 +98,7 @@
                 data-error-message="Passwords do not match / Do not meet requirements."
                 required
                 min-length="8"
-                pattern='^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$'
+                pattern="^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$"
               />
               <label id="confirm-label" for="confirm" class="text-primary"
                 >Confirm your password</label
@@ -123,13 +133,13 @@
           </form>
         </div>
       </div>
-      
     </div>
 
     <script
-  src="https://code.jquery.com/jquery-3.6.3.min.js"
-  integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU="
-  crossorigin="anonymous"></script>
+      src="https://code.jquery.com/jquery-3.6.3.min.js"
+      integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU="
+      crossorigin="anonymous"
+    ></script>
     <script type="module" src="./js/main.js"></script>
   </body>
 </html>
