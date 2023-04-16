@@ -19,3 +19,20 @@ export function removeErrorClasses(errors, errorsList) {
   errorsList.parentNode.style.display = "none";
   errorsList.innerHTML = "";
 }
+
+export function markField(field, option) {
+  switch (option) {
+    case "valid":
+      field.classList.remove("is-invalid");
+      field.classList.add("is-valid");
+      break;
+    case "invalid":
+      field.classList.add("is-invalid");
+      field.classList.remove("is-valid");
+      break;
+    case "clear":
+      field.classList.remove("is-valid");
+      field.classList.remove("is-invalid");
+      break;
+  }
+}

@@ -1,4 +1,4 @@
-import { addErrorClasses, removeErrorClasses } from "./errorClasses";
+import { addErrorClasses, removeErrorClasses, markField } from "./errorClasses";
 import { submitData } from "./submitData";
 
 export class Validator {
@@ -19,7 +19,7 @@ export class Validator {
         const data = new FormData(this.form);
         submitData(data);
         this.form.reset();
-        this.fields.forEach((field) => this.markField(field, "clear"));
+        this.fields.forEach((field) => markField(field, "clear"));
       } else {
         return false;
       }
@@ -52,27 +52,10 @@ export class Validator {
       (field.name === "confirm" && fieldValid && passwordMatch) ||
       (fieldValid && field.name !== "confirm")
     ) {
-      this.markField(field, "valid");
+      markField(field, "valid");
     } else {
       this.errors.push(field.dataset.errorMessage);
-      this.markField(field, "invalid");
-    }
-  }
-
-  markField(field, option) {
-    switch (option) {
-      case "valid":
-        field.classList.remove("is-invalid");
-        field.classList.add("is-valid");
-        break;
-      case "invalid":
-        field.classList.add("is-invalid");
-        field.classList.remove("is-valid");
-        break;
-      case "clear":
-        field.classList.remove("is-valid");
-        field.classList.remove("is-invalid");
-        break;
+      markField(field, "invalid");
     }
   }
 }
