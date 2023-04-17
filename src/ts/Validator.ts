@@ -2,16 +2,20 @@ import { addErrorClasses, removeErrorClasses, markField } from "./errorClasses";
 import { submitData } from "./submitData";
 
 export class Validator {
-  constructor(form) {
+  private form: HTMLFormElement;
+  private fields: NodeListOf<HTMLInputElement>;
+  private errors: string[];
+  private errorsList: HTMLOListElement;
+
+  constructor(form: HTMLFormElement) {
     this.form = form;
     this.fields = form.querySelectorAll("[required]");
     this.errors = [];
-    this.errorsList = this.form.querySelector(".alert ol");
+    this.errorsList = this.form.querySelector(".alert ol") as HTMLOListElement;
     if (!this.fields.length) return;
-    removeErrorClasses(this.errors, this.errorsList);
 
-    this.form.onsubmit = (e) => {
-      e.preventDefault();
+    this.form.onsubmit = (event: Event): boolean | void => {
+      event.preventDefault();
 
       let formValid = this.validate();
 
@@ -26,9 +30,12 @@ export class Validator {
     };
   }
 
-  validate() {
-    const password = this.form.querySelector("#password").value;
-    const confirm = this.form.querySelector("#confirm").value;
+  private validate(): boolean {
+    removeErrorClasses(this.errors, this.errorsList);
+    const password = (this.form.querySelector("#password") as HTMLInputElement)
+      .value;
+    const confirm = (this.form.querySelector("#confirm") as HTMLInputElement)
+      .value;
     let passwordMatch = false;
 
     if (password === confirm) {
@@ -45,7 +52,7 @@ export class Validator {
     }
   }
 
-  validateField(field, passwordMatch) {
+  private validateField(field: HTMLInputElement, passwordMatch: boolean): void {
     const fieldValid = field.validity.valid;
 
     if (
@@ -54,7 +61,10 @@ export class Validator {
     ) {
       markField(field, "valid");
     } else {
-      this.errors.push(field.dataset.errorMessage);
+      const errorMessage = field.dataset.errorMessage;
+      if (errorMessage) {
+        this.errors.push(errorMessage);
+      }
       markField(field, "invalid");
     }
   }

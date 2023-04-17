@@ -1,7 +1,7 @@
 import { showToast } from "./showToast";
 
-export function submitData(data) {
-  fetch("http://localhost:3000/form", {
+export function submitData(data: FormData): void {
+  fetch("https://przeprogramowani.pl/projekt-walidacja", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -12,12 +12,12 @@ export function submitData(data) {
       if (response.ok) {
         return response.text();
       }
-      throw `Status ${response.status}: Failed to send request!`;
+      throw new Error(`Status ${response.status}: Failed to send request!`);
     })
     .then((responseText) => {
       showToast(responseText);
     })
-    .catch((err) => {
+    .catch((err: Error) => {
       showToast(`${err}`, false);
     });
 }
