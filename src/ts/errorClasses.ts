@@ -1,6 +1,9 @@
 import { showToast } from "./showToast";
 
-export function addErrorClasses(errors, errorsList) {
+export function addErrorClasses(
+  errors: string[],
+  errorsList: HTMLOListElement
+): void {
   showToast("Try again!", false);
   let errorsListElements = document.createDocumentFragment();
 
@@ -11,16 +14,20 @@ export function addErrorClasses(errors, errorsList) {
   });
 
   errorsList.appendChild(errorsListElements);
-  errorsList.parentNode.style.display = "block";
+  (errorsList.parentNode! as HTMLElement).style.display = "block";
 }
 
-export function removeErrorClasses(errors, errorsList) {
+export function removeErrorClasses(
+  errors: string[],
+  errorsList: HTMLOListElement
+) {
   errors.length = 0;
-  errorsList.parentNode.style.display = "none";
+  (errorsList.parentNode! as HTMLElement).style.display = "none";
   errorsList.innerHTML = "";
 }
 
-export function markField(field, option) {
+type Option = "valid" | "invalid" | "clear";
+export function markField(field: HTMLInputElement, option: Option): void {
   switch (option) {
     case "valid":
       field.classList.remove("is-invalid");
