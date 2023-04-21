@@ -1,12 +1,13 @@
 {
   "name": "formvalidator",
   "private": false,
-  "version": "0.1.0",
+  "version": "1.0.0",
+  "homepage": "https://tenacioushare.github.io/FormValidator/",
   "scripts": {
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist",
+    "deploy": "gh-pages -d build",
     "dev": "vite",
-    "build": "tsc && vite build",
+    "build": "vite build",
     "preview": "vite preview"
   },
   "devDependencies": {
@@ -14,11 +15,13 @@
     "@types/jquery": "^3.5.16",
     "gh-pages": "^5.0.0",
     "sass": "^1.56.1",
-    "vite": "^3.2.3"
+    "vite": "^3.2.3",
+    "vite-tsconfig-paths": "^4.2.0"
   },
   "dependencies": {
     "@popperjs/core": "^2.11.6",
     "bootstrap": "^5.2.3",
+    "html-webpack-plugin": "^5.5.1",
     "jquery": "^3.6.4",
     "typescript": "^5.0.4"
   }

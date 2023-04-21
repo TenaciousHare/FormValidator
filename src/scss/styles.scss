@@ -1,7 +1,7 @@
 // Import all of Bootstrap's CSS
+@import "~bootstrap/scss/bootstrap";
 $primary: #28587B;
 $white: #EEEEFF;
-@import "~bootstrap/scss/bootstrap";
 
 .alert.alert-danger{
     display: none;
