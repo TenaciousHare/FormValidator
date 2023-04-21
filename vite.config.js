@@ -10,7 +10,7 @@ module.exports = defineConfig({
     },
   },
   build: {
-    outDir: "../build",
+    outDir: "../docs",
     assetsDir: "./assets",
   },
   css: {
