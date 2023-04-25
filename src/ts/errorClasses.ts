@@ -1,9 +1,7 @@
 import { showToast } from "./showToast";
+import { OlList, Input, Element } from "./types";
 
-export function addErrorClasses(
-  errors: string[],
-  errorsList: HTMLOListElement
-): void {
+export function addErrorClasses(errors: string[], errorsList: OlList): void {
   showToast("Try again!", false);
   let errorsListElements = document.createDocumentFragment();
 
@@ -14,20 +12,17 @@ export function addErrorClasses(
   });
 
   errorsList.appendChild(errorsListElements);
-  (errorsList.parentNode! as HTMLElement).style.display = "block";
+  (errorsList.parentNode! as Element).style.display = "block";
 }
 
-export function removeErrorClasses(
-  errors: string[],
-  errorsList: HTMLOListElement
-) {
+export function removeErrorClasses(errors: string[], errorsList: OlList) {
   errors.length = 0;
-  (errorsList.parentNode! as HTMLElement).style.display = "none";
+  (errorsList.parentNode! as Element).style.display = "none";
   errorsList.innerHTML = "";
 }
 
 type Option = "valid" | "invalid" | "clear";
-export function markField(field: HTMLInputElement, option: Option): void {
+export function markField(field: Input, option: Option): void {
   switch (option) {
     case "valid":
       field.classList.remove("is-invalid");

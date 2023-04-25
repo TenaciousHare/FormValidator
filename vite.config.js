@@ -3,14 +3,14 @@ const { defineConfig } = require("vite");
 
 module.exports = defineConfig({
   root: path.resolve(__dirname, "src"),
-  base: "./",
+  base: "/FormValidator/",
   resolve: {
     alias: {
       "~bootstrap": path.resolve(__dirname, "node_modules/bootstrap"),
     },
   },
   build: {
-    outDir: "../docs",
+    outDir: "../build",
     assetsDir: "./assets",
   },
   css: {

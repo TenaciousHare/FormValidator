@@ -1,23 +1,25 @@
 import { showToast } from "./showToast";
 
-export function submitData(data: FormData): void {
-  fetch("https://przeprogramowani.pl/projekt-walidacja", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(data),
-  })
-    .then((response) => {
-      if (response.ok) {
-        return response.text();
+export async function submitData(data: FormData): Promise<void> {
+  try {
+    const response = await fetch(
+      "https://przeprogramowani.pl/projekt-walidacja",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
       }
-      throw new Error(`Status ${response.status}: Failed to send request!`);
-    })
-    .then((responseText) => {
+    );
+
+    if (response.ok) {
+      const responseText = await response.text();
       showToast(responseText);
-    })
-    .catch((err: Error) => {
-      showToast(`${err}`, false);
-    });
+    } else {
+      throw new Error(`Status ${response.status}: Failed to send request!`);
+    }
+  } catch (err: any) {
+    showToast(`${err}`, false);
+  }
 }

@@ -1,20 +1,21 @@
 import { addErrorClasses, removeErrorClasses, markField } from "./errorClasses";
 import { submitData } from "./submitData";
+import { Input, Form, OlList, Boolean } from "./types";
 
 export class Validator {
-  private form: HTMLFormElement;
-  private fields: NodeListOf<HTMLInputElement>;
+  private form: Form;
+  private fields: NodeListOf<Input>;
   private errors: string[];
-  private errorsList: HTMLOListElement;
+  private errorsList: OlList;
 
-  constructor(form: HTMLFormElement) {
+  constructor(form: Form) {
     this.form = form;
     this.fields = form.querySelectorAll("[required]");
     this.errors = [];
-    this.errorsList = this.form.querySelector(".alert ol") as HTMLOListElement;
+    this.errorsList = this.form.querySelector(".alert ol") as OlList;
     if (!this.fields.length) return;
 
-    this.form.onsubmit = (event: Event): boolean | void => {
+    this.form.onsubmit = (event: Event): Boolean | void => {
       event.preventDefault();
 
       let formValid = this.validate();
@@ -30,12 +31,10 @@ export class Validator {
     };
   }
 
-  private validate(): boolean {
+  private validate(): Boolean {
     removeErrorClasses(this.errors, this.errorsList);
-    const password = (this.form.querySelector("#password") as HTMLInputElement)
-      .value;
-    const confirm = (this.form.querySelector("#confirm") as HTMLInputElement)
-      .value;
+    const password = (this.form.querySelector("#password") as Input).value;
+    const confirm = (this.form.querySelector("#confirm") as Input).value;
     let passwordMatch = false;
 
     if (password === confirm) {
@@ -52,7 +51,7 @@ export class Validator {
     }
   }
 
-  private validateField(field: HTMLInputElement, passwordMatch: boolean): void {
+  private validateField(field: Input, passwordMatch: Boolean): void {
     const fieldValid = field.validity.valid;
 
     if (
